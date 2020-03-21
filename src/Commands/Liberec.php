@@ -21,9 +21,9 @@ class Liberec extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $klatovy = new \app\Sites\Liberec();
-        $output->writeln('=== ' . $klatovy->getName() . ' ### ' . $klatovy->getUrl() . ' === ');
-        $statuses = $klatovy->parse(new LoadContentHttp(new HttpClient()), $this->getGoogleSheerStorage($input, 'Liberec'));
+        $liberec = new \app\Sites\Liberec();
+        $output->writeln('=== ' . $liberec->getName() . ' ### ' . $liberec->getUrl() . ' === ');
+        $statuses = $liberec->parse(new LoadContentHttp(new HttpClient()), $this->getGoogleSheerStorage($input, 'Liberec'));
         $output->writeln($statuses ? '=== Saved ===' : '=== Failed ===');
         return 0;
     }

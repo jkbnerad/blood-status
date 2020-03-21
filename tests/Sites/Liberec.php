@@ -19,7 +19,7 @@ class Liberec extends TestCase
      */
     public function parse(): void
     {
-        $klatovy = new \app\Sites\Liberec();
+        $liberec = new \app\Sites\Liberec();
         $mock = new MockHandler([
             new Response(200, ['X-Foo' => 'Bar'], file_get_contents(__DIR__ . '/../staticContent/liberec.html') ?: ''),
         ]);
@@ -27,7 +27,7 @@ class Liberec extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new HttpClient(['handler' => $handlerStack]);
         $content = new LoadContentHttp($client);
-        $results = $klatovy->parse($content, new DevNull());
+        $results = $liberec->parse($content, new DevNull());
 
         $expected = [
                 [
