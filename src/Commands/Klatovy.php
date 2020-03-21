@@ -39,7 +39,7 @@ class Klatovy extends Command
             throw new \RuntimeException('Secret JSON ID must be string or null.');
         }
 
-        $googleSheet = new GoogleSheet($sheetId, $secretJson);
+        $googleSheet = new GoogleSheet('Klatovy', $sheetId, $secretJson);
         $klatovy = new \app\Sites\Klatovy();
         $output->writeln('=== ' . $klatovy->getName() . ' ### ' . $klatovy->getUrl() . ' === ');
         $statuses = $klatovy->parse(new LoadContentHttp(new HttpClient()), $googleSheet);

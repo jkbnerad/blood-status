@@ -14,16 +14,22 @@ class GoogleSheet implements IStorage
      * @var string|null
      */
     private $privacyFile = __DIR__ . '/../../privacy/google.json';
+    /**
+     * @var string
+     */
+    private $list;
 
-    public function __construct(?string $sheetId = null, ?string $privacyFile = null)
+    public function __construct(string $list, ?string $sheetId = null, ?string $privacyFile = null)
     {
         if ($sheetId) {
             $this->sheet = $sheetId;
         }
 
-        if($privacyFile) {
+        if ($privacyFile) {
             $this->privacyFile = $privacyFile;
         }
+
+        $this->list = $list;
     }
 
     private function writeToSheet(array $statuses): void
@@ -38,23 +44,23 @@ class GoogleSheet implements IStorage
         $client->setPrompt('select_account consent');
 
         $rowOne = $rowTwo = [];
-        foreach($statuses as $status) {
+        foreach ($statuses as $status) {
             $rowTwo[] = $status['status'];
         }
 
-        foreach($statuses as $status) {
+        foreach ($statuses as $status) {
             $rowOne[] = $status['type'];
         }
 
         $service = new \Google_Service_Sheets($client);
         $spreadsheetId = $this->sheet;
 
-        $rangeRowOne = 'Status!A2';
+        $rangeRowOne = $this->list . '!A2';
         $values = new \Google_Service_Sheets_ValueRange();
         $values->setValues([$rowOne]);
         $service->spreadsheets_values->update($spreadsheetId, $rangeRowOne, $values, ['valueInputOption' => 'USER_ENTERED']);
 
-        $rangeRowTwo = 'Status!A3';
+        $rangeRowTwo = $this->list . '!A3';
         $values = new \Google_Service_Sheets_ValueRange();
         $values->setValues([$rowTwo]);
         $service->spreadsheets_values->update($spreadsheetId, $rangeRowTwo, $values, ['valueInputOption' => 'USER_ENTERED']);
