@@ -1,6 +1,6 @@
 {
   "name": "convid-19/blood",
-  "description": "Scraping semaforů z webocvých stránek transfusních stanic.",
+  "description": "Získávání informací o stavu zásob krve u vybraných transfuzních stanic.",
   "type": "project",
   "license": "MIT",
   "config": {
