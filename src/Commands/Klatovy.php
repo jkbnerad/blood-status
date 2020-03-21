@@ -15,14 +15,15 @@ class Klatovy extends Command
 
     protected function configure(): void
     {
-       $this->setDescription('Nemocnice Klatovy');
+        parent::configure();
+        $this->setDescription('Nemocnice Klatovy');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $klatovy = new \app\Sites\Klatovy();
         $output->writeln('=== ' . $klatovy->getName() . ' ### ' . $klatovy->getUrl() . ' === ');
-        $statuses = $klatovy->parse(new LoadContentHttp(new HttpClient()),  $this->getGoogleSheerStorage($input, 'Klatovy'));
+        $statuses = $klatovy->parse(new LoadContentHttp(new HttpClient()), $this->getGoogleSheerStorage($input, 'Klatovy'));
         $output->writeln($statuses ? '=== Saved ===' : '=== Failed ===');
         return 0;
     }
