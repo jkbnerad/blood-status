@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":268:{a:2:{s:7:"defects";a:3:{s:23:"tests\LoadContent::load";i:4;s:20:"Sites\Klatovy::parse";i:5;s:27:"tests\LoadContentHttp::load";i:4;}s:5:"times";a:3:{s:23:"tests\LoadContent::load";d:0.017;s:20:"Sites\Klatovy::parse";d:0.036;s:27:"tests\LoadContentHttp::load";d:0.009;}}}
