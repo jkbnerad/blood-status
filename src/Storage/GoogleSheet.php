@@ -54,16 +54,29 @@ class GoogleSheet implements IStorage
 
         $service = new \Google_Service_Sheets($client);
         $spreadsheetId = $this->sheet;
+        if ($spreadsheetId) {
+            $rangeRowOne = $this->list . '!A2';
+            $values = new \Google_Service_Sheets_ValueRange();
+            $values->setValues([$rowOne]);
+            $service->spreadsheets_values->update($spreadsheetId, $rangeRowOne, $values, ['valueInputOption' => 'USER_ENTERED']);
 
-        $rangeRowOne = $this->list . '!A2';
+            $rangeRowTwo = $this->list . '!A3';
+            $values = new \Google_Service_Sheets_ValueRange();
+            $values->setValues([$rowTwo]);
+            $service->spreadsheets_values->update($spreadsheetId, $rangeRowTwo, $values, ['valueInputOption' => 'USER_ENTERED']);
+
+            $this->setLastModified($service, $spreadsheetId);
+        } else {
+            throw new \Exception('Spread Sheet ID expected.');
+        }
+    }
+
+    private function setLastModified(\Google_Service_Sheets $service, string $spreadsheetId): void
+    {
+        $rangeRowOne = $this->list . '!B8';
         $values = new \Google_Service_Sheets_ValueRange();
-        $values->setValues([$rowOne]);
+        $values->setValues([[date('Y-m-d H:i:s')]]);
         $service->spreadsheets_values->update($spreadsheetId, $rangeRowOne, $values, ['valueInputOption' => 'USER_ENTERED']);
-
-        $rangeRowTwo = $this->list . '!A3';
-        $values = new \Google_Service_Sheets_ValueRange();
-        $values->setValues([$rowTwo]);
-        $service->spreadsheets_values->update($spreadsheetId, $rangeRowTwo, $values, ['valueInputOption' => 'USER_ENTERED']);
     }
 
     public function save(array $data): bool
