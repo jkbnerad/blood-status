@@ -10,7 +10,7 @@ class LoadContentHttp implements IContent
     /**
      * @var Client
      */
-    private Client $httpClient;
+    private $httpClient;
 
     public function __construct(Client $httpClient)
     {
