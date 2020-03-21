@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace app\Commands;
 
 use app\ContentLoaders\LoadContentHttp;
+use app\HttpClient;
 use app\Storage\GoogleSheet;
 use GuzzleHttp\Client;
 
@@ -29,7 +30,7 @@ class Klatovy extends Command
         $googleSheet = new GoogleSheet($input->getOption('sheetId') ?: null, $input->getOption('secretJson') ?: null);
         $klatovy = new \app\Sites\Klatovy();
         $output->writeln('=== ' . $klatovy->getName() . ' ### ' . $klatovy->getUrl() . ' === ');
-        $statuses = $klatovy->parse(new LoadContentHttp(new Client(['timeout' => 10])), $googleSheet);
+        $statuses = $klatovy->parse(new LoadContentHttp(new HttpClient()), $googleSheet);
         $output->writeln($statuses ? '=== Saved ===' : '=== Failed ===');
         return 0;
     }
