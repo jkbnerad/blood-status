@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace tests\Sites;
 
 use app\ContentLoaders\LoadContentHttp;
+use app\HttpClient;
 use app\Storage\DevNull;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -25,7 +26,7 @@ class Klatovy extends TestCase
         ]);
 
         $handlerStack = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handlerStack]);
+        $client = new HttpClient(['handler' => $handlerStack]);
         $content = new LoadContentHttp($client);
         $results = $klatovy->parse($content, new DevNull());
 

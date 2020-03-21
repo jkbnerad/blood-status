@@ -6,9 +6,13 @@ namespace app\Storage;
 class GoogleSheet implements IStorage
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $sheet = '1dXkmzsDwuUC-1iM2S6JDBb647VKKEZNWUH2xnCjL3qw';
+
+    /**
+     * @var string|null
+     */
     private $privacyFile = __DIR__ . '/../../privacy/google.json';
 
     public function __construct(?string $sheetId = null, ?string $privacyFile = null)
@@ -27,7 +31,9 @@ class GoogleSheet implements IStorage
         $client = new \Google_Client();
         $client->setApplicationName('Google Sheets');
         $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
-        $client->setAuthConfig($this->privacyFile);
+        if ($this->privacyFile) {
+            $client->setAuthConfig($this->privacyFile);
+        }
         $client->setAccessType('offline');
         $client->setPrompt('select_account consent');
 

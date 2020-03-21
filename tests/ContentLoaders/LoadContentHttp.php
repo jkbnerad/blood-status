@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace tests\ContentLoaders;
 
+use app\HttpClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -22,7 +23,7 @@ final class LoadContentHttp extends TestCase
         ]);
 
         $handlerStack = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handlerStack]);
+        $client = new HttpClient(['handler' => $handlerStack]);
         $loadContent = new \app\ContentLoaders\LoadContentHttp($client);
         self::assertSame($content, $loadContent->load('http://www.example.com'));
     }

@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace app\ContentLoaders;
 
-use GuzzleHttp\ClientInterface;
+use app\HttpClient;
 
 class LoadContentHttp implements IContent
 {
     /**
-     * @var ClientInterface
+     * @var HttpClient
      */
     private $httpClient;
 
-    public function __construct(ClientInterface $httpClient)
+    public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
     }

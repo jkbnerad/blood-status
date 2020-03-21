@@ -8,6 +8,7 @@ use app\HttpClient;
 use app\Storage\GoogleSheet;
 use GuzzleHttp\Client;
 
+use http\Exception\RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +28,18 @@ class Klatovy extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $googleSheet = new GoogleSheet($input->getOption('sheetId') ?: null, $input->getOption('secretJson') ?: null);
+        $sheetId = $input->getOption('sheetId') ?: null;
+        $secretJson = $input->getOption('secretJson') ?: null;
+
+        if (!is_string($sheetId) && $sheetId !== null) {
+            throw new \RuntimeException('Sheet ID must be string or null.');
+        }
+
+        if (!is_string($secretJson) && $secretJson !== null) {
+            throw new \RuntimeException('Secret JSON ID must be string or null.');
+        }
+
+        $googleSheet = new GoogleSheet($sheetId, $secretJson);
         $klatovy = new \app\Sites\Klatovy();
         $output->writeln('=== ' . $klatovy->getName() . ' ### ' . $klatovy->getUrl() . ' === ');
         $statuses = $klatovy->parse(new LoadContentHttp(new HttpClient()), $googleSheet);
