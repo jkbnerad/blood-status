@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace app\Sites;
 
+use app\Blood;
 use app\ContentLoaders\LoadContentHttp;
 use app\Storage\IStorage;
 
@@ -33,5 +34,26 @@ abstract class Sites
     public function getUrl(): string
     {
         return $this->url;
+    }
+
+    protected function sort(array $values): array
+    {
+        $default = [
+            Blood::BLOOD_TYPE_A_NEGATIVE => null,
+            Blood::BLOOD_TYPE_A_POSITIVE => null,
+            Blood::BLOOD_TYPE_B_NEGATIVE => null,
+            Blood::BLOOD_TYPE_B_POSITIVE => null,
+            Blood::BLOOD_TYPE_ZERO_NEGATIVE => null,
+            Blood::BLOOD_TYPE_ZERO_POSITIVE => null,
+            Blood::BLOOD_TYPE_AB_NEGATIVE => null,
+            Blood::BLOOD_TYPE_AB_POSITIVE => null,
+        ];
+
+        foreach($values as $value) {
+            $type = $value['type'];
+            $default[$type] = $value;
+        }
+
+        return array_values($default);
     }
 }

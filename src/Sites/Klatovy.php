@@ -63,7 +63,7 @@ class Klatovy extends Sites
             }
         }
 
-        return $results;
+        return $this->sort($results);
     }
 
     private function convertBloodType(string $value): ?string

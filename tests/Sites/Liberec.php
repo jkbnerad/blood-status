@@ -31,14 +31,6 @@ class Liberec extends TestCase
 
         $expected = [
                 [
-                    'type' => '0-',
-                    'status' => 'warning',
-                ],
-                [
-                    'type' => '0+',
-                    'status' => 'full',
-                ],
-                [
                     'type' => 'A-',
                     'status' => 'warning',
                 ],
@@ -55,13 +47,21 @@ class Liberec extends TestCase
                     'status' => 'full',
                 ],
                 [
+                    'type' => '0-',
+                    'status' => 'warning',
+                ],
+                [
+                    'type' => '0+',
+                    'status' => 'full',
+                ],
+                [
                     'type' => 'AB-',
                     'status' => 'urgent',
                 ],
                 [
                     'type' => 'AB+',
                     'status' => 'full',
-                ]
+                ],
         ];
 
         self::assertEquals($expected, $results);

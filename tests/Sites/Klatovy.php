@@ -33,6 +33,22 @@ class Klatovy extends TestCase
         $expected = [
             [
                 'status' => 'urgent',
+                'type' => 'A-',
+            ],
+            [
+                'status' => 'urgent',
+                'type' => 'A+',
+            ],
+            [
+                'status' => 'urgent',
+                'type' => 'B-',
+            ],
+            [
+                'status' => 'urgent',
+                'type' => 'B+',
+            ],
+            [
+                'status' => 'urgent',
                 'type' => '0-',
             ],
             [
@@ -41,28 +57,12 @@ class Klatovy extends TestCase
             ],
             [
                 'status' => 'urgent',
-                'type' => 'A+',
-            ],
-            [
-                'status' => 'urgent',
-                'type' => 'A-',
-            ],
-            [
-                'status' => 'urgent',
-                'type' => 'B+',
-            ],
-            [
-                'status' => 'urgent',
-                'type' => 'B-',
+                'type' => 'AB-',
             ],
             [
                 'status' => 'urgent',
                 'type' => 'AB+',
             ],
-            [
-                'status' => 'urgent',
-                'type' => 'AB-',
-            ]
         ];
 
         self::assertEquals($expected, $results);

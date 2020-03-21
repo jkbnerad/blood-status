@@ -45,7 +45,7 @@ final class Liberec extends Sites
             }
         }
 
-        return $results;
+        return $this->sort($results);
     }
 
     private function getStatus(int $value): string
